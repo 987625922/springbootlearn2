@@ -23,10 +23,11 @@ public class FileController {
     //locallhost:8080/api/v1/gopage
     @RequestMapping(value = "/api/v1/gopage")
     public Object index() {
+        System.out.println("热加载");
         return "tp";
     }
 
-    private static final String filePath = "D:\\JAVA\\springbootlearn2\\src\\main\\resources\\static\\images\\";
+    private static final String filePath = "C:\\Users\\98762\\Desktop\\";
 
     @RequestMapping("upload")
     @ResponseBody
