@@ -4,6 +4,9 @@ import lombok.Data;
 
 import java.io.Serializable;
 
+/**
+ * api返回客户端格式
+ */
 @Data
 public class JsonData implements Serializable {
 

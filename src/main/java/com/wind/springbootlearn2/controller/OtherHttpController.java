@@ -40,6 +40,12 @@ public class OtherHttpController {
         return params;
     }
 
+    /**
+     * delect 请求
+     *
+     * @param id
+     * @return
+     */
     @DeleteMapping("/v1/del")
     public Object del(String id) {
         params.clear();
