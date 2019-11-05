@@ -1,6 +1,8 @@
 package com.wind.springbootlearn2.controller;
 
 import com.wind.springbootlearn2.domain.JsonData;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,8 +17,10 @@ import java.util.UUID;
 /*
  * springboot不加载格外的resources资源目录下的文件夹，需要格外映射
  * 文件上传测试
+ * //todo 注解把配置文件自动映射
  * */
 @Controller
+@PropertySource({"classpath:resource.properties"})
 public class FileController {
 
     //templates文件夹下的html不加载，需要特殊映射
@@ -27,8 +31,13 @@ public class FileController {
         return "tp";
     }
 
-    private static final String filePath = "C:\\Users\\98762\\Desktop\\";
+    //todo 把配置文件中的值映射到String中
+    @Value("${web.file.path}")
+    private String filePath;
 
+    /*
+     * 文件上传接口
+     * */
     @RequestMapping("upload")
     @ResponseBody
     public JsonData upload(@RequestParam("head_img") MultipartFile file, HttpServletRequest request) {
@@ -37,7 +46,7 @@ public class FileController {
         //获取文件名
         String fileName = file.getOriginalFilename();
         System.out.println("上传的文件名为：" + fileName);
-
+        System.out.println("配置文件注入的文件路径为" + filePath);
         //获取文件的后缀名
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
         System.out.println("上传的后缀名为：" + suffixName);

@@ -1,11 +1,19 @@
 package com.wind.springbootlearn2.controller;
 
+import com.wind.springbootlearn2.entity.TestSetting;
 import com.wind.springbootlearn2.entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+/*
+* 1、@RequestMapping和@GetMapping区别
+        @RequestMapping可以指定GET、POST请求方式
+        @GetMapping等价于@RequestMapping的GET请求方式
+* */
 
 //GET请求的学习
 @RestController
@@ -105,5 +113,15 @@ public class GetController {
     @RequestMapping("/testjackson")
     public Object testjackson() {
         return new User(111, "111", "11", new Date());
+    }
+
+    /*
+    * //todo 配置文件注入到实体类的测试
+    * */
+    @Autowired
+    TestSetting testSetting;
+    @GetMapping("/test/getresource")
+    public TestSetting getResource() {
+        return testSetting;
     }
 }
