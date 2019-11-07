@@ -27,4 +27,11 @@ public class CustomExtHandler {
         map.put("url", request.getRequestURL());
         return map;
     }
+
+    @ExceptionHandler(value = CustomException.class)
+    Object handlerCustomException(Exception e, HttpServletRequest request){
+        LOG.error("url {},msg{}", request.getRequestURL(), e.getMessage());
+        Map<String, Object> map = new HashMap<>();
+        return map;
+    }
 }
