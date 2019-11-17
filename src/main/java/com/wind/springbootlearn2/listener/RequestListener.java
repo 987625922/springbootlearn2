@@ -8,7 +8,7 @@ import javax.servlet.annotation.WebListener;
  * 原生servlet监听器使用
  * 如果配合springboot来使用需要再application中加@ServletComponentScan进行扫描
  */
-@WebListener
+//@WebListener
 public class RequestListener implements ServletRequestListener {
     @Override
     public void requestInitialized(ServletRequestEvent sre) {
