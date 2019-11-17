@@ -10,9 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-/*
+/**
  * 全局异常捕获类
- * */
+ */
+
+//用于对Controller进行“切面”环绕的，而具体的业务织入方式则是通过结合其他的注解来实现的
 @RestControllerAdvice
 public class CustomExtHandler {
 
@@ -21,6 +23,7 @@ public class CustomExtHandler {
     //捕获Exception的异常，处理所有不可知的异常
     @ExceptionHandler(value = Exception.class)
     Object handlerException(Exception e, HttpServletRequest request) {
+        System.out.println("CustomExtHandler handlerException");
         LOG.error("url {},msg{}", request.getRequestURL(), e.getMessage());
         Map<String, Object> map = new HashMap<>();
         map.put("code", 100);
@@ -46,6 +49,7 @@ public class CustomExtHandler {
 //        modelAndView.setViewName("error.html");
 //        modelAndView.addObject("msg", e.getMessage());
 //        return modelAndView;
+        System.out.println("CustomExtHandler handlerCustomException");
         Map<String, Object> map = new HashMap<>();
         map.put("code", e.getCode());
         map.put("msg", e.getMsg());

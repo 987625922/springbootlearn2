@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 import javax.servlet.MultipartConfigElement;
 
 @SpringBootApplication
-@ServletComponentScan
+@ServletComponentScan //扫描代码中的@WebServlet @WebFilter @WebListener 注解自动注册
 public class Springbootlearn2Application {
 
     public static void main(String[] args) {
