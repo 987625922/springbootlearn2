@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
  * */
 @Component
 @PropertySource({"classpath:resource.properties"})
-public class TestSetting {
+public class SetResourceValueBean {
     @Value("${test.name}")
     private String name;
     @Value("${test.url}")

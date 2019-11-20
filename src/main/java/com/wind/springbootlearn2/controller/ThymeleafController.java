@@ -1,7 +1,6 @@
 package com.wind.springbootlearn2.controller;
 
-import com.sun.deploy.net.HttpResponse;
-import com.wind.springbootlearn2.entity.TestSetting;
+import com.wind.springbootlearn2.entity.SetResourceValueBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ThymeleafController {
 
     @Autowired
-    private TestSetting testSetting;
+    private SetResourceValueBean setResourceValueBean;
 
     /**
      * 使用thymeleaf
@@ -29,7 +28,7 @@ public class ThymeleafController {
 
     @RequestMapping("setValue")
     public String setValue(ModelMap modelMap){
-        modelMap.addAttribute("value",testSetting);
+        modelMap.addAttribute("value", setResourceValueBean);
         return "admin/info";
     }
 }

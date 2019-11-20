@@ -1,7 +1,7 @@
 package com.wind.springbootlearn2.controller;
 
-import com.wind.springbootlearn2.entity.TestSetting;
-import com.wind.springbootlearn2.entity.User;
+import com.wind.springbootlearn2.entity.SetResourceValueBean;
+import com.wind.springbootlearn2.entity.UserControllerBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -70,7 +70,7 @@ public class GetController {
     * 注意：1.注意需要指定http头为content-type为applicaiton/json
     *       2.使用body传递数据
     *       3.post请求，不然会报找不到RequestBody
-    * @param user
+    * @param userControllerBean
     *
     *localhost:8080/v1/save_user
     *postman的body选raw
@@ -79,9 +79,9 @@ public class GetController {
       }
     * */
     @RequestMapping("/v1/save_user")
-    public Object saveUser(@RequestBody User user) {
+    public Object saveUser(@RequestBody UserControllerBean userControllerBean) {
         params.clear();
-        params.put("user", user);
+        params.put("user", userControllerBean);
         return params;
     }
 
@@ -112,16 +112,16 @@ public class GetController {
      * */
     @RequestMapping("/testjackson")
     public Object testjackson() {
-        return new User(111, "111", "11", new Date());
+        return new UserControllerBean(111, "111", "11", new Date());
     }
 
     /*
     * //todo 配置文件注入到实体类的测试
     * */
     @Autowired
-    TestSetting testSetting;
+    SetResourceValueBean setResourceValueBean;
     @GetMapping("/test/getresource")
-    public TestSetting getResource() {
-        return testSetting;
+    public SetResourceValueBean getResource() {
+        return setResourceValueBean;
     }
 }

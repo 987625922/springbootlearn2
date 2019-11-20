@@ -1,5 +1,6 @@
 package com.wind.springbootlearn2;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
@@ -10,6 +11,7 @@ import javax.servlet.MultipartConfigElement;
 
 @SpringBootApplication
 @ServletComponentScan //扫描代码中的@WebServlet @WebFilter @WebListener 注解自动注册
+@MapperScan("com.wind.springbootlearn2.mapper")//扫描mapper下面的包
 public class Springbootlearn2Application {
 
     public static void main(String[] args) {

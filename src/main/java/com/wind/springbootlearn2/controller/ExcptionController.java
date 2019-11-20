@@ -1,7 +1,7 @@
 package com.wind.springbootlearn2.controller;
 
 import com.wind.springbootlearn2.domain.CustomException;
-import com.wind.springbootlearn2.entity.User;
+import com.wind.springbootlearn2.entity.UserControllerBean;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,7 +23,7 @@ public class ExcptionController {
     @RequestMapping("/api/v1/test_ext")
     public Object testExt() {
         int i = 1 / 0;
-        return new User(11, "123", "123", new Date());
+        return new UserControllerBean(11, "123", "123", new Date());
     }
 
 
