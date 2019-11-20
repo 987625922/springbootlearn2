@@ -21,6 +21,7 @@ target/
 .mvn
 mvnw
 mvnw.cmd
+images/
 
 ### NetBeans ###
 /nbproject/private/
