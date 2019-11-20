@@ -15,6 +15,8 @@
 │    │     │    │     ├── filter 过滤器 
 │    │     │    │     ├── intecpter 拦截器 
 │    │     │    │     ├── listener 监听器
+│    │     │    │     ├── mapper mybatis的mapper类，用于对数据库的增删改查
+│    │     │    │     ├── service 调用数据库类的service类
 │    │     │    │     ├── servlet 存放servlet，springboot原生servlet开发笔记
 │    │     ├── resources
 │    │     │    ├── config 存放配置文件application.properties的文件夹
@@ -26,6 +28,7 @@
 │    │     │    ├── resource.properties springboot的自定义属性配置文件,配置属性在代码中使用
 │    │     │    ├── trigger.txt 热加载触发器，需要在application.properties中配置
 
-
 </code></pre>
 </details>
+
+##### mybatis学习的相关类   MybatisController -> UserService -> UserMapper
