@@ -115,11 +115,9 @@ public class GetController {
         return new UserControllerBean(111, "111", "11", new Date());
     }
 
-    /*
-    * //todo 配置文件注入到实体类的测试
-    * */
     @Autowired
     SetResourceValueBean setResourceValueBean;
+
     @GetMapping("/test/getresource")
     public SetResourceValueBean getResource() {
         return setResourceValueBean;

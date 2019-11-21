@@ -78,5 +78,15 @@ public class MybatisController {
         return new JsonData(200, null, "删除成功");
     }
 
+    /**
+     * 事务使用的测试
+     * <p>
+     */
+    @GetMapping("/transanction")
+    public Object transanctionTest() {
+        userService.transanctionTest();
+        return new JsonData(500, null, "transanctionTest事务执行");
+    }
+
 
 }

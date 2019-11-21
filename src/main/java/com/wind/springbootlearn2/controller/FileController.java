@@ -17,9 +17,9 @@ import java.util.UUID;
 /*
  * springboot不加载格外的resources资源目录下的文件夹，需要格外映射
  * 文件上传测试
- * //todo 注解把配置文件自动映射
  * */
 @Controller
+//获取配置文件，使用@Value把值直接映射到变量中
 @PropertySource({"classpath:resource.properties"})
 public class FileController {
 

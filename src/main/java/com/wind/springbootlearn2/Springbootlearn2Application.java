@@ -10,8 +10,8 @@ import org.springframework.context.annotation.Bean;
 import javax.servlet.MultipartConfigElement;
 
 @SpringBootApplication
-@ServletComponentScan //扫描代码中的@WebServlet @WebFilter @WebListener 注解自动注册
-@MapperScan("com.wind.springbootlearn2.mapper")//扫描mapper下面的包
+@ServletComponentScan //todo 扫描代码中的@WebServlet @WebFilter @WebListener 注解自动注册（servlet 3.0功能）
+@MapperScan("com.wind.springbootlearn2.mapper")//todo 扫描mapper下面的类，开启mybatis的mapper使用
 public class Springbootlearn2Application {
 
     public static void main(String[] args) {
