@@ -17,4 +17,12 @@ public class User {
 
     private Date createTime;
 
+    public User() {
+    }
+
+    public User(int id, String name, Date createTime) {
+        this.id = id;
+        this.name = name;
+        this.createTime = createTime;
+    }
 }
