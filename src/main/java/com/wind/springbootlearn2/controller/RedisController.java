@@ -45,7 +45,9 @@ public class RedisController {
         String username = redisClient.get("username");
         return new JsonData(200, username, "redis查询数据成功");
     }
-
+    /*
+    * 测试添加json格式的redis数据
+    * */
     @GetMapping("/set_user")
     public Object setUser() {
         User user = new User(13, "username", new Date());
@@ -54,6 +56,9 @@ public class RedisController {
         return new JsonData(200, user, "user数据在redis中添加成功");
     }
 
+    /*
+    * 测试获取json格式的redis数据
+    * */
     @GetMapping("/find_user")
     public Object findUser() {
         String userStr = redisClient.get("entity:user:13");
