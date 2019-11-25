@@ -43,7 +43,7 @@ public class AsyncController {
     /*
      * 有future返回值得异步任务处理
      * 处理task的结果所以完成时间是最长时间的线程完成时间
-     * */
+`     * */
 //    1）要把异步任务封装到类里面，不能直接写到Controller
 //	  2）增加Future<String> 返回结果 AsyncResult<String>("task执行完成");
 //	  3）如果需要拿到结果 需要判断全部的 task.isDone()
