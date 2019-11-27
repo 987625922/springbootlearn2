@@ -19,6 +19,8 @@ import javax.servlet.MultipartConfigElement;
 public class Springbootlearn2Application {
 
     public static void main(String[] args) {
+        // 避免netty冲突和elasticsearch
+        System.setProperty("es.set.netty.runtime.available.processors", "false");
         SpringApplication.run(Springbootlearn2Application.class, args);
     }
 
