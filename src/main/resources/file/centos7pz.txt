@@ -31,6 +31,9 @@ rpm -e --nodeps [jdk名称]
 4.重启防火墙 firewall-cmd --reload，停止防火墙 systemctl stop firewalld.service.
 
 ----- mysql配置
+这个是使用二进制包的方式安装，过程太繁琐，推荐使用yum的方式
+旧版本mysql下载地址：https://dev.mysql.com/downloads/mysql/5.6.html
+
 1.解压mysql-8.0.18-1.el7.x86_64.rpm-bundle.tar到目录下
 2.添加用户组来使用mysql    groupadd developer
 3.添加用户来使用mysql   useradd -g developer dlp
