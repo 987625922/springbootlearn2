@@ -56,3 +56,23 @@ systemctl start tomcat.service
 systemctl status tomcat.service
 7.设置开机启动
 systemctl enable tomcat.service
+
+--------------------  添加用户
+2.添加用户组来使用mysql    groupadd developer
+3.添加用户来使用mysql   useradd -g developer dlp
+
+-------------------- 防火墙
+开启8080端口 firewall-cmd --zone=public(作用域) --add-port=8080/tcp(端口和访问类型) --permanent(永久生效)
+
+4.重启防火墙 firewall-cmd --reload，停止防火墙 systemctl stop firewalld.service.
+
+
+--------------   elasticsearch
+shell> ./bin/elasticsearch //启动(5.0.0之后由于安全升级，所以不可以使用root账号启动)
+#-d 表示后台启动
+
+sh bin/elasticsearch -d
+----------------  用户
+查看用户：cut -d : -f 1 /etc/passwd
+查看用户组：cut -d : -f 1 /etc/group
+删除xiaoluo这个用户：userdel -r xiaoluo
