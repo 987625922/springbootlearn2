@@ -1,10 +1,16 @@
 package com.wind.springbootlearn2.controller;
 
 import com.wind.springbootlearn2.entity.SetResourceValueBean;
+import com.wind.springbootlearn2.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 /**
  * thymeleaf的Controller页面
  * 主要学如何使用thymeleaf
@@ -27,8 +33,19 @@ public class ThymeleafController {
 
 
     @RequestMapping("setValue")
-    public String setValue(ModelMap modelMap){
+    public String setValue(ModelMap modelMap) {
         modelMap.addAttribute("value", setResourceValueBean);
         return "admin/info";
     }
+
+    @RequestMapping("listfor")
+    public String forList(ModelMap modelMap) {
+        List<User> users = new ArrayList<>();
+        users.add(new User(1, "张三", new Date()));
+        users.add(new User(2, "李四", new Date()));
+        users.add(new User(3, "王五", new Date()));
+        modelMap.addAttribute("userList",users);
+        return "listfor";
+    }
+
 }

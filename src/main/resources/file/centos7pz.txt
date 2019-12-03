@@ -1,3 +1,14 @@
+-----centos7 网络配置
+1.进入 /etc/sysconfig/network-scripts 目录
+
+2.cd /etc/sysconfig/network-scripts
+
+3.打开配置文件 vi ifcfg-ens33
+
+4.将文件里的 ONBOOT=no，改为ONBOOT=yes
+
+5.重启网络服务   service network restart
+
 -------- JAVA配置
 把jdk解压到指定目录下
 1.解压jdk-8u231-linux-x64.tar.gz到目录下
@@ -72,15 +83,3 @@ lower_case_table_names=1
 max_allowed_packet=16M
 
 15.
-
-
------centos7 网络配置
-1.进入 /etc/sysconfig/network-scripts 目录
-
-2.cd /etc/sysconfig/network-scripts
-
-3.打开配置文件 vi ifcfg-ens33
-
-4.将文件里的 ONBOOT=no，改为ONBOOT=yes
-
-5.重启网络服务   service network restart
