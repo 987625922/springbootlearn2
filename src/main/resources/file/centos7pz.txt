@@ -31,55 +31,28 @@ source  /etc/profile
 rpm -qa|grep java
 rpm -e --nodeps [jdk名称]
 
+-------- tomcat配置
+1.下载 wget http://mirrors.tuna.tsinghua.edu.cn/apache/tomcat/tomcat-8/v8.5.49/bin/apache-tomcat-8.5.49.tar.gz
+2.解压 tar -zxvf
+3.启动tomcat ./usr/local/tomcat8/bin/startup.sh
+4.修改tomcat.service
+vi /lib/systemd/system/tomcat.service
+[Unit]
+Description=tomcat
+After=network.target
 
------ tomcat配置
-1.解压apache-tomcat-9.0.29.tar.gz到目录下
+[Service]
+Type=oneshot
+ExecStart=/usr/local/tomcat/apache-tomcat-9.0.16/bin/startup.sh   //自已的tomcat目录
+ExecStop=/usr/local/tomcat/apache-tomcat-9.0.16/bin/shutdown.sh
+ExecReload=/bin/kill -s HUP $MAINPID
+RemainAfterExit=yes
 
-2.命令行运行tomcat   ./root/tomcats/tomcat-8080/bin/startup.sh
-
-3.开启8080端口 firewall-cmd --zone=public(作用域) --add-port=8080/tcp(端口和访问类型) --permanent(永久生效)
-
-4.重启防火墙 firewall-cmd --reload，停止防火墙 systemctl stop firewalld.service.
-
------ mysql配置
-这个是使用二进制包的方式安装，过程太繁琐，推荐使用yum的方式
-旧版本mysql下载地址：https://downloads.mysql.com/archives/community/
-
-1.解压mysql-8.0.18-1.el7.x86_64.rpm-bundle.tar到目录下
-2.添加用户组来使用mysql    groupadd developer
-3.添加用户来使用mysql   useradd -g developer dlp
-4.查询是否有默认数据库   rpm -qa|grep mariadb
-5.删除默认数据库  rpm -e --nodeps 文件名
-6.给用户赋予文件夹权限 chown -R dlp /dlp
-7.进入mysql目录，安装mysql  ./bin/mysqld --user=mysql --basedir=/var/soft/mysql --datadir=/var/soft/mysql/data --initialize
-8.开启mysql服务 ./support-files/mysql.server start
-9.不是安装在默认目录/usr/local/mysql下，这里修改配置文件,在basedir加入上    vi /dlp/mysql/support-files/mysql.server
-10.在mysql.server文件中的basedir=和datadir=加上 mysql的文件目录
-11.basedir=/dlp/mysql 和 datadir=/dlp/mysql/data
-12.将mysql进程放入系统进程中  cp support-files/mysql.server /etc/init.d/mysqld
-13.重新启动mysql服务  service mysqld restart
-14.在etc下新建配置文件my.cnf，并在该文件内添加以下代码：
-
-[mysql]
-# 设置mysql客户端默认字符集
-default-character-set=utf8
-socket=/var/lib/mysql/mysql.sock
-[mysqld]
-skip-name-resolve
-#设置3306端口
-port=3306
-socket=/var/lib/mysql/mysql.sock
-# 设置mysql的安装目录
-basedir=/usr/local/mysql
-# 设置mysql数据库的数据的存放目录
-datadir=/usr/local/mysql/data
-# 允许最大连接数
-max_connections=200
-# 服务端使用的字符集默认为8比特编码的latin1字符集
-character-set-server=utf8
-# 创建新表时将使用的默认存储引擎
-default-storage-engine=INNODB
-lower_case_table_names=1
-max_allowed_packet=16M
-
-15.
+[Install]
+WantedBy=multi-user.target
+5.启动服务
+systemctl start tomcat.service
+6.查看服务状态
+systemctl status tomcat.service
+7.设置开机启动
+systemctl enable tomcat.service
