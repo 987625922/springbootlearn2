@@ -72,6 +72,26 @@ shell> ./bin/elasticsearch //启动(5.0.0之后由于安全升级，所以不可
 #-d 表示后台启动
 
 sh bin/elasticsearch -d
+
+如果需要远程连接
+
+修改 config/elasticsearch.yml 文件
+network.host: 0.0.0.0
+
+ERROR: [1] bootstrap checks failed
+[1]: max file descriptors [65535] for elasticsearch process is too low, increase to at least [65536]
+解决方法
+
+vi /etc/sysctl.conf
+设置fs.file-max=655350
+
+保存之后sysctl -p使设置生效
+
+vi /etc/security/limits.conf 新增
+* soft nofile 655350
+
+* hard nofile 655350
+
 ----------------  用户
 查看用户：cut -d : -f 1 /etc/passwd
 查看用户组：cut -d : -f 1 /etc/group
