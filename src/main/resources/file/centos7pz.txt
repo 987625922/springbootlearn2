@@ -1,4 +1,4 @@
------centos7 网络配置
+﻿-----centos7 网络配置
 1.进入 /etc/sysconfig/network-scripts 目录
 
 2.cd /etc/sysconfig/network-scripts
@@ -56,3 +56,38 @@ systemctl start tomcat.service
 systemctl status tomcat.service
 7.设置开机启动
 systemctl enable tomcat.service
+
+-----------------------------  停止进程
+1.比如 先查看 httpd 进程 
+ps aux |grep httpd 
+
+2.这个就是 apache 的所有进程 
+我们可以用  kill -9 加进程ID  
+-----------------------  redis
+一、安装redis
+1.第一步：下载redis安装包
+wget http://download.redis.io/releases/redis-4.0.6.tar.gz
+
+2.第二步：解压压缩包
+tar -zxvf redis-4.0.6.tar.gz
+
+3.第三步：yum安装gcc依赖
+yum install gcc
+
+4.第四步：跳转到redis解压目录下
+cd redis-4.0.6
+
+5.第五步：编译安装
+make MALLOC=libc　　
+[root@iZwz991stxdwj560bfmadtZ redis-4.0.6]# make MALLOC=libc
+ 
+6.将/usr/local/redis-4.0.6/src目录下的文件加到/usr/local/bin目录
+
+7.cd src && make install
+[root@iZwz991stxdwj560bfmadtZ redis-4.0.6]# cd src && make install
+
+8.先切换到redis src目录下
+
+9。直接启动redis
+./redis-server
+按 ctrl + c可以关闭窗口。
