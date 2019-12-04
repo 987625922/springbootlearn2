@@ -7,8 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 @RequestMapping("/api/elastic")
 public class ArticleController {
 
@@ -18,7 +19,7 @@ public class ArticleController {
     @GetMapping("save")
     public Object save() {
         Article article = new Article();
-        article.setId(2l);
+        article.setId(System.currentTimeMillis());
         article.setPv(888);
         article.setContent("这是内容");
         article.setTitle("这是标题");

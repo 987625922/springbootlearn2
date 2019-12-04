@@ -91,3 +91,33 @@ make MALLOC=libc　　
 9。直接启动redis
 ./redis-server
 按 ctrl + c可以关闭窗口。
+
+https://www.cnblogs.com/zuidongfeng/p/8032505.html
+
+
+--------------  防火墙命令
+#查看版本：
+firewall-cmd --version
+#查看帮助：
+firewall-cmd --help
+#显示状态：
+firewall-cmd --state
+#查看端口：
+firewall-cmd --list-port
+#开放端口：
+firewall-cmd --add-port=80/tcp --permanent
+firewall-cmd --add-port=20000-20010/tcp --permanent
+#禁用端口：
+firewall-cmd --remove-port=80/tcp --permanent
+firewall-cmd --remove-port=20000-20010/tcp --permanent
+
+#重新加载防火墙规则：
+firewall-cmd --reload
+
+#开放/关闭服务端口：
+#打开FTP服务：
+firewall-cmd --add-service=ftp --permanent
+#关闭FTP服务：
+firewall-cmd --remove-service=ftp --permanent
+
+## 参数 --permanent，表示永久生效
