@@ -1,17 +1,21 @@
-package com.wind.springbootlearn2.elastic.controller;
+package com.wind.springbootlearn2.controller;
 
 import com.wind.springbootlearn2.domain.JsonData;
-import com.wind.springbootlearn2.elastic.domain.Article;
-import com.wind.springbootlearn2.elastic.repository.ArticleRepository;
+import com.wind.springbootlearn2.domain.Article;
+import com.wind.springbootlearn2.repository.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * elasticsearch学习使用的controller
+ *
+ * 主要有添加数据到elasticsearch
+ */
 @RestController
 @RequestMapping("/api/elastic")
-public class ArticleController {
+public class ElasticsearchController {
 
     @Autowired
     private ArticleRepository articleRepository;

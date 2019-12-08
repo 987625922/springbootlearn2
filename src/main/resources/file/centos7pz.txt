@@ -121,3 +121,40 @@ firewall-cmd --add-service=ftp --permanent
 firewall-cmd --remove-service=ftp --permanent
 
 ## 参数 --permanent，表示永久生效
+
+-----------------------  elasticsearch
+1、添加用户
+
+elastic 无法直接从root用户直接启动，所以先添加用户
+
+ groupadd elsearch
+ useradd elsearch -g elsearch -p elasticsearch
+
+2、下载elastic并解压
+
+tar -zxvf  elasticsearch-6.5.4.tar.gz
+
+3、设置权限
+
+chown -R elsearch:elsearch    elasticsearch-6.5.4
+
+4、切换用户
+
+su elsearch
+
+5、启动elastic
+
+cd elasticsearch-6.5.4
+
+#-d 表示后台启动
+
+sh bin/elasticsearch -d
+
+启动成功后浏览器访问：
+
+http://IP地址:9200
+
+如果需要远程连接
+
+修改 config/elasticsearch.yml 文件
+network.host: 0.0.0.0
