@@ -1,9 +1,5 @@
 ========================13、消息队列介绍和SpringBoot2.x整合RockketMQ、ActiveMQ 9节课=======================
 
-
-加入小D课堂技术交流答疑群：Q群：699347262
-
-
 1、JMS介绍和使用场景及基础编程模型
 	简介：讲解什么是小写队列，JMS的基础知识和使用场景
 	1、什么是JMS: Java消息服务（Java Message Service),Java平台中关于面向消息中间件的接口
@@ -38,13 +34,6 @@
 		Session： 一个发送或接收消息的线程
 		Destination ：消息的目的地;消息发送给谁.
 		MessageConsumer / MessageProducer： 消息接收者，消费者
-
-
-
-
-
-
-
 
 2、ActiveMQ5.x消息队列基础介绍和安装
 	

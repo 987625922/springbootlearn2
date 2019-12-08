@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import javax.jms.Destination;
 import javax.jms.Queue;
 
@@ -16,7 +17,7 @@ import javax.jms.Queue;
 public class ActiveMQUseServiceimpl implements ActiveMQUseService {
 
     //发送消息队列的模板，用来发送到消息队列
-    @Autowired
+    @Resource
     private JmsMessagingTemplate jmsMessagingTemplate;
 
     @Autowired

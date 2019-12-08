@@ -89,9 +89,14 @@
         </dependency>
         <!--   ActiveMQ线程池     -->
         <dependency>
-            <groupId>org.apache.activemq</groupId>
-            <artifactId>activemq-pool</artifactId>
+            <groupId>org.messaginghub</groupId>
+            <artifactId>pooled-jms</artifactId>
         </dependency>
+        <!--    导入包同上，用上面的包是为了解决springboot2.1以上 JmsMessagingTemplate  bo bean 问题   -->
+        <!--        <dependency>-->
+        <!--            <groupId>org.apache.activemq</groupId>-->
+        <!--            <artifactId>activemq-pool</artifactId>-->
+        <!--        </dependency>-->
     </dependencies>
 
     <build>
