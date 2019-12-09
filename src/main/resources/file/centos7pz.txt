@@ -158,3 +158,16 @@ http://IP地址:9200
 
 修改 config/elasticsearch.yml 文件
 network.host: 0.0.0.0
+
+------------------------------- activemq
+需要先 安装 JDK 并配置环境变量（略） JAVA_HOME=/usr/local/java/jdk1.7.0_72
+1.wget 下载tar包
+2.解压tar
+3.进入activemq文件夹
+4. ./activemq start 启动
+5.查看activemq进程：ps -ef| grep activemq
+6.防火墙的设置添加8161和61616端口号：
+firewall-cmd --zone=public --add-port=8161/tcp --permanent （--permanent永久生效，没有此参数重启后失效）
+7.重新载入 firewall-cmd --reload
+查看端口是否设置成功：firewall-cmd --zone=public --list-ports
+8.最后验证结果输入 http://ip地址:8161/admin   用户名:admin 密码：admin
