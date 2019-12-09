@@ -1,0 +1,134 @@
+========7、SpringBoot常用Starter介绍和整合模板引擎Freemaker、thymeleaf 4节课=========================
+
+加入小D课堂技术交流答疑群：Q群：699347262
+
+
+1、SpringBoot Starter讲解
+	简介：介绍什么是SpringBoot Starter和主要作用
+
+	1、官网地址：https://docs.spring.io/spring-boot/docs/2.1.0.BUILD-SNAPSHOT/reference/htmlsingle/#using-boot-starter
+	
+	2、starter主要简化依赖用的
+		spring-boot-starter-web	->里面包含多种依赖
+
+	3、几个常用的starter
+		spring-boot-starter-activemq
+		spring-boot-starter-aop
+		spring-boot-starter-data-redis
+		spring-boot-starter-freemarker
+		spring-boot-starter-thymeleaf
+		spring-boot-starter-webflux
+
+
+	
+
+
+
+
+
+
+
+	
+2、SpringBoot2.x常见模板引擎讲解和官方推荐使用
+	简介：介绍常用的SpringBoot2.x模板引擎和官方推荐案例
+
+		1、JSP（后端渲染，消耗性能）
+			Java Server Pages 动态网页技术,由应用服务器中的JSP引擎来编译和执行，再将生成的整个页面返回给客户端
+			可以写java代码
+			持表达式语言（el、jstl）
+			内建函数
+			JSP->Servlet(占用JVM内存)permSize
+			javaweb官方推荐
+			springboot不推荐 https://docs.spring.io/spring-boot/docs/2.1.0.BUILD-SNAPSHOT/reference/htmlsingle/#boot-features-jsp-limitations
+
+		2、Freemarker 
+			FreeMarker Template Language（FTL）  文件一般保存为 xxx.ftl
+			严格依赖MVC模式，不依赖Servlet容器（不占用JVM内存）
+			内建函数
+
+		3、Thymeleaf (主推)
+			轻量级的模板引擎（负责逻辑业务的不推荐，解析DOM或者XML会占用多的内存）
+			可以直接在浏览器中打开且正确显示模板页面
+
+			直接是html结尾，直接编辑
+			xdlcass.net/user/userinfo.html
+			社会工程学
+				伪装
+
+
+
+
+
+
+
+3、SpringBoot2.x整合模板引擎freemarker实战
+	简介：SpringBoot2.x整合模板引擎freemarker实战
+
+	1、Freemarker相关maven依赖
+		<!-- 引入freemarker模板引擎的依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-freemarker</artifactId>
+        </dependency>
+
+	2、Freemarker基础配置
+		# 是否开启thymeleaf缓存,本地为false，生产建议为true
+		spring.freemarker.cache=false
+
+		spring.freemarker.charset=UTF-8
+		spring.freemarker.allow-request-override=false
+		spring.freemarker.check-template-location=true
+		
+		#类型
+		spring.freemarker.content-type=text/html
+
+		spring.freemarker.expose-request-attributes=true
+		spring.freemarker.expose-session-attributes=true
+		
+		#文件后缀
+		spring.freemarker.suffix=.ftl
+		#路径
+		spring.freemarker.template-loader-path=classpath:/templates/
+		
+
+	3、建立文件夹
+		1)src/main/resources/templates/fm/user/
+		2)建立一个index.ftl
+		3)user文件夹下面建立一个user.html
+
+
+
+	4、简单测试代码编写和访问
+	
+
+4、SpringBoot2.x整合模板引擎thymeleaf实战
+	讲解：SpringBoot2.x整合模板引擎thymeleaf实战
+
+	官网地址：https://www.thymeleaf.org/doc/articles/thymeleaf3migration.html
+	1、thymeleaf相关maven依赖
+			<dependency>
+		   		<groupId>org.springframework.boot</groupId>
+		   		<artifactId>spring-boot-starter-thymeleaf</artifactId>
+			</dependency>
+
+	2、thymeleaf基础配置
+
+		#开发时关闭缓存,不然没法看到实时页面
+		spring.thymeleaf.cache=false
+		spring.thymeleaf.mode=HTML5
+		#前缀
+		spring.thymeleaf.prefix=classpath:/templates/
+		#编码
+		spring.thymeleaf.encoding=UTF-8
+		#类型
+		spring.thymeleaf.content-type=text/html
+		#名称的后缀
+		spring.thymeleaf.suffix=.html
+
+	3、建立文件夹
+		1)src/main/resources/templates/tl/
+		2)建立一个index.html
+
+	4、简单测试代码编写和访问
+		注意：$表达式只能写在th标签内部
+		快速入门：https://www.thymeleaf.org/doc/articles/standarddialect5minutes.html

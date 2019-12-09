@@ -1,0 +1,91 @@
+========================9、SpringBoot2.x整合Redis实战 4节课================================
+	
+
+加入小D课堂技术交流答疑群：Q群：699347262
+
+
+1、分布式缓存Redis介绍 
+	简介:讲解为什么要用缓存和介绍什么是Redis，新手练习工具
+	
+	1、redis官网 https://redis.io/download
+	
+	2、新手入门redis在线测试工具：http://try.redis.io/
+
+
+
+
+2、源码编译安装Redis4.x
+	简介：使用源码安装Redis4.x和配置外网访问
+
+	1、快速安装  https://redis.io/download#installation
+			wget http://download.redis.io/releases/redis-4.0.9.tar.gz
+			tar xzf redis-4.0.9.tar.gz
+			cd redis-4.0.9
+			make
+
+			启动服务端：src/redis-server
+			启动客户端：src/redis-cli
+
+	2、默认是本地访问的，需要开放外网访问
+		1）打开redis.conf文件在NETWORK部分修改
+		   注释掉bind 127.0.0.1可以使所有的ip访问redis
+		   修改 protected-mode，值改为no
+
+
+
+
+
+
+
+3、SpringBoot2.x整合redis实战讲解
+
+	简介：使用springboot-starter整合reids实战
+
+		1、官网：https://docs.spring.io/spring-boot/docs/2.1.0.BUILD-SNAPSHOT/reference/htmlsingle/#boot-features-redis
+			集群文档：https://docs.spring.io/spring-data/data-redis/docs/current/reference/html/#cluster
+
+		2、springboot整合redis相关依赖引入
+			<dependency>
+	            <groupId>org.springframework.boot</groupId>
+	            <artifactId>spring-boot-starter-data-redis</artifactId>
+	        </dependency>
+	    
+	    3、相关配置文件配置
+			#=========redis基础配置=========
+			spring.redis.database=0
+			spring.redis.host=127.0.0.1
+			spring.redis.port=6390
+			# 连接超时时间 单位 ms（毫秒）
+			spring.redis.timeout=3000
+
+			#=========redis线程池设置=========
+			# 连接池中的最大空闲连接，默认值也是8。
+			spring.redis.pool.max-idle=200
+
+			#连接池中的最小空闲连接，默认值也是0。
+			spring.redis.pool.min-idle=200
+			
+			# 如果赋值为-1，则表示不限制；pool已经分配了maxActive个jedis实例，则此时pool的状态为exhausted(耗尽)。
+			spring.redis.pool.max-active=2000
+
+			# 等待可用连接的最大时间，单位毫秒，默认值为-1，表示永不超时
+			spring.redis.pool.max-wait=1000
+
+
+
+		4、常见redistemplate种类讲解和缓存实操(使用自动注入)
+
+			1、注入模板
+			@Autowired
+			private StirngRedisTemplate strTplRedis
+
+			2、类型String，List,Hash,Set,ZSet
+			对应的方法分别是opsForValue()、opsForList()、opsForHash()、opsForSet()、opsForZSet()
+			
+
+
+
+4、Redis工具类封装讲解和实战
+	简介：高效开发方式 Redis工具类封装讲解和实战
+		1、常用客户端 https://redisdesktop.com/download
+		2、封装redis工具类并操作

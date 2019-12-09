@@ -1,0 +1,101 @@
+========================3、SpringBoot热部署devtool和配置文件自动注入实战 3节课============================
+
+加入小D课堂技术交流答疑群：Q群：699347262
+
+1、SpringBoot2.x使用Dev-tool热部署
+	简介:介绍什么是热部署，使用springboot结合dev-tool工具，快速加载启动应用
+
+	官方地址：https://docs.spring.io/spring-boot/docs/2.1.0.BUILD-SNAPSHOT/reference/htmlsingle/#using-boot-devtools
+	核心依赖包：
+		<dependency>  
+		     <groupId>org.springframework.boot</groupId>  
+		     <artifactId>spring-boot-devtools</artifactId>  
+		     <optional>true</optional>  
+		 </dependency>
+	添加依赖后，在ide里面重启应用，后续修改后马上可以生效
+
+	classloader
+ 	
+ 	不被热部署的文件
+ 		1、/META-INF/maven, /META-INF/resources, /resources, /static, /public, or /templates
+ 		2、指定文件不进行热部署 spring.devtools.restart.exclude=static/**,public/**
+ 		3、手工触发重启 spring.devtools.restart.trigger-file=trigger.txt
+ 			改代码不重启，通过一个文本去控制
+
+ 		https://docs.spring.io/spring-boot/docs/2.1.0.BUILD-SNAPSHOT/reference/htmlsingle/#using-boot-devtools-restart-exclude
+
+ 	注意点：生产环境不要开启这个功能，如果用java -jar启动，springBoot是不会进行热部署的
+
+
+
+
+
+
+2、SpringBoot2.x配置文件讲解
+	简介：SpringBoot2.x常见的配置文件 xml、yml、properties的区别和使用
+
+		xml、properties、json、yaml
+		1、常见的配置文件 xx.yml, xx.properties，
+			1)YAML（Yet Another Markup Language）
+				写 YAML 要比写 XML 快得多(无需关注标签或引号)
+				使用空格 Space 缩进表示分层，不同层次之间的缩进可以使用不同的空格数目
+				注意：key后面的冒号，后面一定要跟一个空格,树状结构
+			application.properties示例
+				server.port=8090  
+				server.session-timeout=30  
+				server.tomcat.max-threads=0  
+				server.tomcat.uri-encoding=UTF-8 
+
+			application.yml示例
+				server:  
+	  				port: 8090  
+	  				session-timeout: 30  
+	  				tomcat.max-threads: 0  
+	  				tomcat.uri-encoding: UTF-8 
+
+
+		2、默认示例文件仅作为指导。 不要将整个内容复制并粘贴到您的应用程序中，只挑选您需要的属性。
+		
+		3、参考：https://docs.spring.io/spring-boot/docs/2.1.0.BUILD-SNAPSHOT/reference/htmlsingle/#common-application-properties
+
+		如果需要修改，直接复制对应的配置文件，加到application.properties里面
+
+
+
+
+3、SpringBoot注解把配置文件自动映射到属性和实体类实战
+	简介：讲解使用@value注解配置文件自动映射到属性和实体类
+			
+	1、配置文件加载
+		方式一
+			1、Controller上面配置
+			   @PropertySource({"classpath:resource.properties"})
+			2、增加属性
+				 @Value("${test.name}")
+		 		 private String name;
+
+		方式二：实体类配置文件
+		步骤：
+			1、添加 @Component 注解；
+			2、使用 @PropertySource 注解指定配置文件位置；
+			3、使用 @ConfigurationProperties 注解，设置相关属性；
+
+			4、必须 通过注入IOC对象Resource 进来 ， 才能在类中使用获取的配置文件值。
+				@Autowired
+	    		private ServerSettings serverSettings;
+
+	    		例子：
+	    			@Configuration
+					@ConfigurationProperties(prefix="test")
+					@PropertySource(value="classpath:resource.properties")
+					public class ServerConstant {
+
+
+			常见问题：
+				1、配置文件注入失败，Could not resolve placeholder
+					解决：根据springboot启动流程，会有自动扫描包没有扫描到相关注解, 
+					默认Spring框架实现会从声明@ComponentScan所在的类的package进行扫描，来自动注入，
+					因此启动类最好放在根路径下面，或者指定扫描包范围
+					spring-boot扫描启动类对应的目录和子目录
+				2、注入bean的方式，属性名称和配置文件里面的key一一对应，就用加@Value 这个注解
+					如果不一样，就要加@value("${XXX}")

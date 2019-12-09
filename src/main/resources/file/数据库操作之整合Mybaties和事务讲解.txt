@@ -1,0 +1,236 @@
+========================8、数据库操作之整合Mybaties和事务讲解 5节课================================
+
+加入小D课堂技术交流答疑群：Q群：699347262
+
+1、SpringBoot2.x持久化数据方式介绍
+	
+	简介：介绍近几年常用的访问数据库的方式和优缺点
+
+		1、原始java访问数据库
+			开发流程麻烦
+			1、注册驱动/加载驱动
+				Class.forName("com.mysql.jdbc.Driver")
+			2、建立连接
+				Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbname","root","root");
+			3、创建Statement
+
+			4、执行SQL语句
+
+			5、处理结果集
+
+			6、关闭连接，释放资源
+
+		2、apache dbutils框架
+			比上一步简单点
+			官网:https://commons.apache.org/proper/commons-dbutils/
+		3、jpa框架
+			spring-data-jpa
+			jpa在复杂查询的时候性能不是很好
+		
+		4、Hiberante   解释：ORM：对象关系映射Object Relational Mapping
+			企业大都喜欢使用hibernate
+		
+		5、Mybatis框架   
+			互联网行业通常使用mybatis
+			不提供对象和关系模型的直接映射,半ORM
+		
+
+
+
+2、SpringBoot2.x整合Mybatis3.x注解实战
+	简介：SpringBoot2.x整合Mybatis3.x注解配置实战
+
+		1、使用starter, maven仓库地址：http://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter
+
+		2、加入依赖(可以用 http://start.spring.io/ 下载)
+					
+			<!-- 引入starter-->
+					<dependency>
+					    <groupId>org.mybatis.spring.boot</groupId>
+					    <artifactId>mybatis-spring-boot-starter</artifactId>
+					    <version>1.3.2</version>
+					    <scope>runtime</scope>			    
+					</dependency>
+		 			
+		 	<!-- MySQL的JDBC驱动包	-->	
+		 			<dependency>
+						<groupId>mysql</groupId>
+						<artifactId>mysql-connector-java</artifactId>
+						<scope>runtime</scope>
+					</dependency> 
+			<!-- 引入第三方数据源 -->		
+					<dependency>
+						<groupId>com.alibaba</groupId>
+						<artifactId>druid</artifactId>
+						<version>1.1.6</version>
+					</dependency>
+
+		3、加入配置文件
+			#mybatis.type-aliases-package=net.xdclass.base_project.domain
+			#可以自动识别
+			#spring.datasource.driver-class-name =com.mysql.jdbc.Driver
+
+			spring.datasource.url=jdbc:mysql://localhost:3306/movie?useUnicode=true&characterEncoding=utf-8
+			spring.datasource.username =root
+			spring.datasource.password =password
+			#如果不使用默认的数据源 （com.zaxxer.hikari.HikariDataSource）
+			spring.datasource.type =com.alibaba.druid.pool.DruidDataSource
+
+		加载配置，注入到sqlSessionFactory等都是springBoot帮我们完成
+
+		4、启动类增加mapper扫描
+			@MapperScan("net.xdclass.base_project.mapper")
+
+			 技巧：保存对象，获取数据库自增id 
+			 @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
+
+		4、开发mapper
+			参考语法 http://www.mybatis.org/mybatis-3/zh/java-api.html
+
+		5、sql脚本
+			CREATE TABLE `user` (
+			  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+			  `name` varchar(128) DEFAULT NULL COMMENT '名称',
+			  `phone` varchar(16) DEFAULT NULL COMMENT '用户手机号',
+			  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+			  `age` int(4) DEFAULT NULL COMMENT '年龄',
+			  PRIMARY KEY (`id`)
+			) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+
+
+		相关资料：
+		http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/#Configuration
+
+		https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-samples
+
+		整合问题集合：
+			https://my.oschina.net/hxflar1314520/blog/1800035
+			https://blog.csdn.net/tingxuetage/article/details/80179772
+
+
+
+
+
+
+
+
+
+
+
+
+
+3、SpringBoot2.x整合Mybatis3.x增删改查实操和控制台打印SQL语句
+	讲解:SpringBoot2.x整合Mybatis3.x增删改查实操, 控制台打印sql语句
+	
+	1、控制台打印sql语句		
+		#增加打印sql语句，一般用于本地开发测试
+		mybatis.configuration.log-impl=org.apache.ibatis.logging.stdout.StdOutImpl
+
+	2、增加mapper代码		
+	    @Select("SELECT * FROM user")
+	    @Results({
+	        @Result(column = "create_time",property = "createTime")  //javaType = java.util.Date.class        
+	    })
+	    List<User> getAll();
+	  
+	    @Select("SELECT * FROM user WHERE id = #{id}")
+	    @Results({
+	    	 @Result(column = "create_time",property = "createTime")
+	    })
+	    User findById(Long id);
+
+	    @Update("UPDATE user SET name=#{name} WHERE id =#{id}")
+	    void update(User user);
+
+	    @Delete("DELETE FROM user WHERE id =#{userId}")
+	    void delete(Long userId);
+	 
+	 3、增加API
+
+		@GetMapping("find_all")
+		public Object findAll(){
+	       return JsonData.buildSuccess(userMapper.getAll());
+		}
+		
+		@GetMapping("find_by_Id")
+		public Object findById(long id){
+	       return JsonData.buildSuccess(userMapper.findById(id));
+		}
+		
+		@GetMapping("del_by_id")
+		public Object delById(long id){
+		userMapper.delete(id);
+	       return JsonData.buildSuccess();
+		}
+		
+		@GetMapping("update")
+		public Object update(String name,int id){
+			User user = new User();
+			user.setName(name);
+			user.setId(id);
+			userMapper.update(user);
+		    return JsonData.buildSuccess();
+		}
+
+
+
+
+
+
+
+
+
+
+4、事务介绍和常见的隔离级别，传播行为
+	
+	简介：讲解什么是数据库事务，常见的隔离级别和传播行为
+
+	1、介绍什么是事务，单机事务，分布式事务处理等
+
+	2、讲解场景的隔离级别
+		Serializable： 最严格，串行处理，消耗资源大
+		Repeatable Read：保证了一个事务不会修改已经由另一个事务读取但未提交（回滚）的数据
+		Read Committed：大多数主流数据库的默认事务等级
+		Read Uncommitted：保证了读取过程中不会读取到非法数据。
+
+
+	3、讲解常见的传播行为
+		PROPAGATION_REQUIRED--支持当前事务，如果当前没有事务，就新建一个事务,最常见的选择。
+
+		PROPAGATION_SUPPORTS--支持当前事务，如果当前没有事务，就以非事务方式执行。
+
+		PROPAGATION_MANDATORY--支持当前事务，如果当前没有事务，就抛出异常。
+
+		PROPAGATION_REQUIRES_NEW--新建事务，如果当前存在事务，把当前事务挂起, 两个事务之间没有关系，一个异常，一个提交，不会同时回滚
+
+		PROPAGATION_NOT_SUPPORTED--以非事务方式执行操作，如果当前存在事务，就把当前事务挂起。
+
+		PROPAGATION_NEVER--以非事务方式执行，如果当前存在事务，则抛出异常
+
+
+
+
+
+
+
+
+
+5、SpringBoot整合mybatis之事务处理实战
+	简介：SpringBoot整合Mybatis之事务处理实战
+	1、service逻辑引入事务 @Transantional(propagation=Propagation.REQUIRED)
+
+	2、service代码
+		@Override
+	    @Transactional
+		public int addAccount() {
+			User user = new User();
+			user.setAge(9);
+			user.setCreateTime(new Date());
+			user.setName("事务测试");
+			user.setPhone("000121212");
+			
+			userMapper.insert(user);
+	        int a = 1/0;
+
+			return user.getId();
+		}

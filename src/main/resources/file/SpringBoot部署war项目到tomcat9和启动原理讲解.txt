@@ -1,0 +1,81 @@
+========================5、SpringBoot部署war项目到tomcat9和启动原理讲解 2节课==============================
+
+加入小D课堂技术交流答疑群：Q群：699347262
+
+1、SpringBoot启动方式讲解和部署war项目到tomcat9
+简介：SpringBoot常见启动方式讲解和部署war项目Tomcat
+
+	1、ide启动
+	2、jar包方式启动
+				maven插件:
+				<build>
+				<plugins>
+					<plugin>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-maven-plugin</artifactId>
+					</plugin>
+				</plugins>
+				</build>
+				如果没有加，则执行jar包 ，报错如下
+					java -jar spring-boot-demo-0.0.1-SNAPSHOT.jar
+					no main manifest attribute, in spring-boot-demo-0.0.1-SNAPSHOT.jar
+				如果有安装maven 用 mvn spring-boot:run
+		项目结构
+			example.jar
+					 |
+					 +-META-INF
+					 |  +-MANIFEST.MF
+					 +-org
+					 |  +-springframework
+					 |     +-boot
+					 |        +-loader
+					 |           +-<spring boot loader classes>
+					 +-BOOT-INF
+					    +-classes
+					    |  +-mycompany
+					    |     +-project
+					    |        +-YourClasses.class
+					    +-lib
+					       +-dependency1.jar
+					       +-dependency2.jar
+	目录结构讲解
+	https://docs.spring.io/spring-boot/docs/2.1.0.BUILD-SNAPSHOT/reference/htmlsingle/#executable-jar-jar-file-structure
+
+	3、war包方式启动
+		1)在pom.xml中将打包形式 jar 修改为war  <packaging>war</packaging>
+
+		构建项目名称 <finalName>xdclass_springboot</finalName>
+
+		2)tocmat下载 https://tomcat.apache.org/download-90.cgi
+		
+		3)修改启动类
+			public class XdclassApplication extends SpringBootServletInitializer {
+
+			    @Override
+			    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+			        return application.sources(XdclassApplication.class);
+			    }
+
+			    public static void main(String[] args) throws Exception {
+			        SpringApplication.run(XdclassApplication.class, args);
+			    }
+
+			}
+
+		4)打包项目，启动tomcat
+
+	4、启动容器介绍和第三方测试数据讲解
+	
+	使用Jmter测试工具测试性能，QPS,TPS，RT
+
+	https://examples.javacodegeeks.com/enterprise-java/spring/tomcat-vs-jetty-vs-undertow-comparison-of-spring-boot-embedded-servlet-containers/
+
+
+
+
+
+
+
+
+2、SpringBoot2.x启动原理概述
+	简介：讲解SpringBoot启动流程概述和基本加载案例

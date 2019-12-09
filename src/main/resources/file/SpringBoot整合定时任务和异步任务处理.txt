@@ -1,0 +1,53 @@
+========================10、SpringBoot整合定时任务和异步任务处理 3节课================================
+
+
+加入小D课堂技术交流答疑群：Q群：699347262
+
+
+1、SpringBoot定时任务schedule讲解
+	简介：讲解什么是定时任务和常见定时任务区别
+
+		1、常见定时任务 Java自带的java.util.Timer类
+			timer:配置比较麻烦，时间延后问题
+			timertask:不推荐
+
+		2、Quartz框架
+			配置更简单
+			xml或者注解
+
+		3、SpringBoot使用注解方式开启定时任务
+			1）启动类里面 @EnableScheduling开启定时任务，自动扫描
+			2）定时任务业务类 加注解 @Component被容器扫描
+			3）定时执行的方法加上注解 @Scheduled(fixedRate=2000) 定期执行一次
+
+
+
+2、SpringBoot常用定时任务配置实战
+	简介：SpringBoot常用定时任务表达式配置和在线生成器
+
+		1、cron 定时任务表达式 @Scheduled(cron="*/1 * * * * *") 表示每秒
+			1）crontab 工具  https://tool.lu/crontab/
+		2、fixedRate: 定时多久执行一次（上一次开始执行时间点后xx秒再次执行；）
+		3、fixedDelay: 上一次执行结束时间点后xx秒再次执行
+		4、fixedDelayString:  字符串形式，可以通过配置文件指定
+		
+
+
+
+3、SpringBoot2.x异步任务实战（核心知识）
+	简介：讲解什么是异步任务，和使用SpringBoot2.x开发异步任务实战
+		1、什么是异步任务和使用场景：适用于处理log、发送邮件、短信……等
+			下单接口->查库存 100
+					余额校验 150
+					风控用户100
+					....
+
+
+		2、启动类里面使用@EnableAsync注解开启功能，自动扫描
+		
+		3、定义异步任务类并使用@Component标记组件被容器扫描,异步方法加上@Async
+			注意点：
+				1）要把异步任务封装到类里面，不能直接写到Controller
+				2）增加Future<String> 返回结果 AsyncResult<String>("task执行完成");  
+				3）如果需要拿到结果 需要判断全部的 task.isDone()
+		4、通过注入方式，注入到controller里面，如果测试前后区别则改为同步则把Async注释掉

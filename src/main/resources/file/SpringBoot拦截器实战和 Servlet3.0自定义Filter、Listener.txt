@@ -1,0 +1,124 @@
+=================6、SpringBoot拦截器实战和 Servlet3.0自定义Filter、Listener 4节课============
+
+加入小D课堂技术交流答疑群：Q群：699347262
+
+1、深入SpringBoot2.x过滤器Filter和使用Servlet3.0配置自定义Filter实战(核心知识)
+	简介:讲解SpringBoot里面Filter讲解和使用Servlet3.0配置自定义Filter实战
+		
+		filter简单理解：人--->检票员（filter）---> 景点
+
+		1、SpringBoot启动默认加载的Filter 
+			characterEncodingFilter
+			hiddenHttpMethodFilter
+			httpPutFormContentFilter
+			requestContextFilter
+				
+		2、Filter优先级
+
+			Ordered.HIGHEST_PRECEDENCE
+			Ordered.LOWEST_PRECEDENCE
+
+			低位值意味着更高的优先级 Higher values are interpreted as lower priority
+			自定义Filter，避免和默认的Filter优先级一样，不然会冲突
+
+			注册Filter的bean FilterRegistrationBean
+			同模块里面有相关默认Filter
+				web->servlet->filter
+
+
+		3、自定义Filter
+			1）使用Servlet3.0的注解进行配置
+			2）启动类里面增加 @ServletComponentScan，进行扫描
+			3）新建一个Filter类，implements Filter，并实现对应的接口
+			4) @WebFilter 标记一个类为filter，被spring进行扫描 
+				urlPatterns：拦截规则，支持正则
+
+			6）控制chain.doFilter的方法的调用，来实现是否通过放行
+			   不放行，web应用resp.sendRedirect("/index.html");
+				场景：权限控制、用户登录(非前端后端分离场景)等
+			
+
+		1、官网地址：https://docs.spring.io/spring-boot/docs/2.1.0.BUILD-SNAPSHOT/reference/htmlsingle/#boot-features-embedded-container-servlets-filters-listeners
+
+
+
+
+2、Servlet3.0的注解自定义原生Servlet实战
+	讲解：使用 Servlet3.0的注解自定义原生Servlet和Listener
+		1、自定义原生Servlet
+
+			@WebServlet(name = "userServlet",urlPatterns = "/test/customs")
+			public class UserServlet extends HttpServlet{
+
+				 @Override
+			     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+			         resp.getWriter().print("custom sevlet");
+			         resp.getWriter().flush();
+			         resp.getWriter().close();
+			     }
+
+			     @Override
+			     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+			         this.doGet(req, resp);
+			     }
+			}
+
+
+
+
+
+3、Servlet3.0的注解自定义原生Listener监听器实战
+		简介：监听器介绍和Servlet3.0的注解自定义原生Listener监听器实战
+
+		1、自定义Listener(常用的监听器 servletContextListener、httpSessionListener、servletRequestListener)
+			@WebListener
+			public class RequestListener implements ServletRequestListener {
+
+			@Override
+			public void requestDestroyed(ServletRequestEvent sre) {
+				// TODO Auto-generated method stub
+				System.out.println("======requestDestroyed========");
+			}
+
+			@Override
+			public void requestInitialized(ServletRequestEvent sre) {
+				System.out.println("======requestInitialized========");
+				
+			}
+
+
+
+
+
+
+4、SpringBoot2.X自定义拦截器实战及新旧配置对比(核心知识)
+	简介: 讲解拦截器使用，Spingboot2.x新版本配置拦截拦截器和旧版本SpringBoot配置拦截器区别讲解
+	
+	1、@Configuration
+		继承WebMvcConfigurationAdapter(SpringBoot2.X之前旧版本)
+
+		SpringBoot2.X 新版本配置拦截器 implements WebMvcConfigurer
+
+	2、自定义拦截器 HandlerInterceptor
+		preHandle：调用Controller某个方法之前
+		postHandle：Controller之后调用，视图渲染之前，如果控制器Controller出现了异常，则不会执行此方法
+		afterCompletion：不管有没有异常，这个afterCompletion都会被调用，用于资源清理
+	
+	3、按照注册顺序进行拦截，先注册，先被拦截
+
+	拦截器不生效常见问题：
+		1）是否有加@Configuration
+		2）拦截路径是否有问题 **  和 * 
+		3）拦截器最后路径一定要 “/**”， 如果是目录的话则是 /*/
+
+	Filter
+		是基于函数回调 doFilter()，而Interceptor则是基于AOP思想
+		Filter在只在Servlet前后起作用，而Interceptor够深入到方法前后、异常抛出前后等
+
+		依赖于Servlet容器即web应用中，而Interceptor不依赖于Servlet容器所以可以运行在多种环境。
+	
+		在接口调用的生命周期里，Interceptor可以被多次调用，而Filter只能在容器初始化时调用一次。
+		
+		Filter和Interceptor的执行顺序
+     	
+    	过滤前->拦截前->action执行->拦截后->过滤后
