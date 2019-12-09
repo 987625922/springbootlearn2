@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.jms.Destination;
 import javax.jms.Queue;
+import javax.jms.Topic;
 
 /**
  * ActiveMQ消息生产的实现类
@@ -24,7 +25,7 @@ public class ActiveMQUseServiceimpl implements ActiveMQUseService {
     private Queue queue;
 
     /**
-     * 发送消息
+     * 指定消息队列，还有消息，发送消息,发送点对点消息
      *
      * @param destination 发送消息的队列
      * @param message     待发送的消息
@@ -42,5 +43,22 @@ public class ActiveMQUseServiceimpl implements ActiveMQUseService {
     @Override
     public void sendMessage(String message) {
         jmsMessagingTemplate.convertAndSend(this.queue, message);
+    }
+
+    /**
+     * ============================================ 发布订阅相关 ================================================
+     */
+
+    @Autowired
+    public Topic topic;
+
+    /**
+     * 消息发布者，发送一个发送者对多个消费者的消息
+     *
+     * @param msg 待发送的消息文本
+     */
+    @Override
+    public void publish(String msg) {
+        jmsMessagingTemplate.convertAndSend(this.topic, msg);
     }
 }

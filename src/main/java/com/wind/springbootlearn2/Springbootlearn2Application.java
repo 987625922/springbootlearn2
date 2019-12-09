@@ -1,6 +1,7 @@
 package com.wind.springbootlearn2;
 
 import org.apache.activemq.command.ActiveMQQueue;
+import org.apache.activemq.command.ActiveMQTopic;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,6 +16,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 import javax.jms.ConnectionFactory;
 import javax.jms.Queue;
+import javax.jms.Topic;
 import javax.servlet.MultipartConfigElement;
 
 @SpringBootApplication
@@ -44,11 +46,32 @@ public class Springbootlearn2Application {
     /**
      * 把ActiveMQ的queue对象交给spring进行管理，使用时只需要注入就可以了
      * 可以不这样写
+     * 创建点对点消息队列的queue
      */
     @Bean
     public Queue queue() {
         return new ActiveMQQueue("wind-queues");
     }
 
+    /**
+     * 创建activemq消息发布订阅模型的topic
+     * 把topic交给spring进行管理，避免每一次都new一个
+     */
+    @Bean
+    public Topic topic() {
+        return new ActiveMQTopic("video.topic");
+    }
+
+    /**
+     * 使activemq支持发布订阅模型，需要在每一个订阅者的方法@JmsListener的注解中添加,containerFactory = "jmsListenerContainerTopic"
+     * activemq默认只支持一个发布模型（要么点对点，要么发布订阅）
+     */
+    @Bean
+    public JmsListenerContainerFactory<?> jmsListenerContainerTopic(ConnectionFactory connectionFactory) {
+        DefaultJmsListenerContainerFactory bean = new DefaultJmsListenerContainerFactory();
+        bean.setPubSubDomain(true);
+        bean.setConnectionFactory(connectionFactory);
+        return bean;
+    }
 
 }

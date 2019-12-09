@@ -171,3 +171,16 @@ firewall-cmd --zone=public --add-port=8161/tcp --permanent （--permanent永久�
 7.重新载入 firewall-cmd --reload
 查看端口是否设置成功：firewall-cmd --zone=public --list-ports
 8.最后验证结果输入 http://ip地址:8161/admin   用户名:admin 密码：admin
+
+----------- rocketmq
+1、快速开始 http://rocketmq.apache.org/docs/quick-start/
+	   下载安装包：wget https://www.apache.org/dyn/closer.cgi?path=rocketmq/4.2.0/rocketmq-all-4.2.0-bin-release.zip
+2.解压下载下来的包 unzip
+3.进入bin命令
+4.输入 nohup sh mqnamesrv &   启动namesrv
+5.ctrl+c 退出
+6.vi nohup.out 查看是否有
+The Name Server boot success. serializeType=JSON
+有就表示成功了
+7.查看  ps -ef |grep java 是否有org.apache.rocketmq.namesrv.NamesrvStartup
+8.启动broker   nohup sh mqbroker -n 127.0.0.1:9876 &
