@@ -223,15 +223,16 @@ firewall-cmd --zone=public --add-port=8161/tcp --permanent （--permanent永久�
 	   下载安装包：wget https://www.apache.org/dyn/closer.cgi?path=rocketmq/4.2.0/rocketmq-all-4.2.0-bin-release.zip
 2.解压下载下来的包 unzip
 3.进入bin命令
-4.输入 nohup sh mqnamesrv &   启动namesrv
+4.输入 nohup sh bin/mqnamesrv &   启动namesrv
 5.ctrl+c 退出
-6.vi nohup.out 查看是否有
+6.vi nohup.out 查看是否有 tail -f ~/logs/rocketmqlogs/namesrv.log
 The Name Server boot success. serializeType=JSON
 有就表示成功了
 7.查看  ps -ef |grep java 是否有org.apache.rocketmq.namesrv.NamesrvStartup
-8.启动broker   nohup sh mqbroker -n 127.0.0.1:9876 autoCreateTopicEnable=true -c /usr/local/rocketmq-all-4.3.0-bin-release/conf/broker.conf &
+8.启动broker   nohup sh bin/mqbroker -n 127.0.0.1:9876 autoCreateTopicEnable=true -c /dlp/rocketmq4/conf/broker.conf &
 //autoCreateTopicEnable=true为允许用户自定创建topic
 //-c 后面添加的为使用的rocketmq参数
+tail -f ~/logs/rocketmqlogs/broker.log
 
 9.外网访问
 10.修改rocketmq文件夹下的conf/broker.conf

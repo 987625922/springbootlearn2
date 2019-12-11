@@ -16,11 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.UnsupportedEncodingException;
 
 /**
- * 功能描述：模拟微信支付回调
+ * RocketMQ学习用的controller
  *
- * <p> 创建时间：May 3, 2018 9:53:14 PM </p>
- *
- * @作者 小D课堂  小D
  */
 @RestController
 @RequestMapping("/api/rocketmq")
@@ -37,8 +34,8 @@ public class RocketMQController {
      * @param tag 消息二级分类
      * @return
      */
-    @GetMapping("order")
-    public Object order(String msg, String tag) throws MQClientException, RemotingException, MQBrokerException,
+    @GetMapping("send")
+    public Object sendMessage(String msg, String tag) throws MQClientException, RemotingException, MQBrokerException,
             InterruptedException, UnsupportedEncodingException {
 
         /**
