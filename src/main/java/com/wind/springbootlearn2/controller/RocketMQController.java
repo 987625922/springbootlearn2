@@ -44,7 +44,7 @@ public class RocketMQController {
         /**
          * 创建一个消息实例，包含 topic、tag 和 消息体
          */
-        Message message = new Message("testTopic", tag, msg.getBytes(RemotingHelper.DEFAULT_CHARSET));
+        Message message = new Message("TopicTest", tag, msg.getBytes(RemotingHelper.DEFAULT_CHARSET));
 
         SendResult result = rocketMQProducer.getProducer().send(message);
 

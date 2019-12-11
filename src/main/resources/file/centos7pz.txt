@@ -217,6 +217,8 @@ firewall-cmd --zone=public --add-port=8161/tcp --permanent （--permanent永久�
 
 
 ----------- rocketmq
+官方整合文档：https://rocketmq-1.gitbook.io/rocketmq-connector/quick-start/qian-qi-zhun-bei/dan-ji-huan-jing
+
 1、快速开始 http://rocketmq.apache.org/docs/quick-start/
 	   下载安装包：wget https://www.apache.org/dyn/closer.cgi?path=rocketmq/4.2.0/rocketmq-all-4.2.0-bin-release.zip
 2.解压下载下来的包 unzip
@@ -227,13 +229,27 @@ firewall-cmd --zone=public --add-port=8161/tcp --permanent （--permanent永久�
 The Name Server boot success. serializeType=JSON
 有就表示成功了
 7.查看  ps -ef |grep java 是否有org.apache.rocketmq.namesrv.NamesrvStartup
-8.启动broker   nohup sh mqbroker -n 127.0.0.1:9876 &
+8.启动broker   nohup sh mqbroker -n 127.0.0.1:9876 autoCreateTopicEnable=true -c /usr/local/rocketmq-all-4.3.0-bin-release/conf/broker.conf &
+//autoCreateTopicEnable=true为允许用户自定创建topic
+//-c 后面添加的为使用的rocketmq参数
+
 9.外网访问
 10.修改rocketmq文件夹下的conf/broker.conf
 vi conf/broker.conf
 在文件最后添加以下内容
 #InetAddress用于网络接口,如果是虚拟机则配置的是虚拟机的外网ip
 brokerIP1=192.168.85.132
+brokerIP2=192.168.85.132
 namesrvAddr=192.168.85.132:9876
 
 11.修改后执行启动命令： nohup sh bin/mqbroker -c conf/broker.conf &
+关闭服务
+# 关闭 broker
+> sh bin/mqshutdown broker
+The mqbroker(36695) is running...
+Send shutdown request to mqbroker(36695) OK
+​
+# 关闭 namesrv
+> sh bin/mqshutdown namesrv
+The mqnamesrv(36664) is running...
+Send shutdown request to mqnamesrv(36664) OK
