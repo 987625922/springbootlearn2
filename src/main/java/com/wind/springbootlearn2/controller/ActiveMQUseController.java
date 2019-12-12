@@ -36,7 +36,7 @@ public class ActiveMQUseController {
     }
 
     /**
-     * 发送一点多（发布订阅）消息
+     * 发送（发布订阅）消息
      *
      * @param msg 发送的消息文本
      * @return
