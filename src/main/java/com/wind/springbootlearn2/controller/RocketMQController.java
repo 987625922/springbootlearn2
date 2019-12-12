@@ -17,7 +17,6 @@ import java.io.UnsupportedEncodingException;
 
 /**
  * RocketMQ学习用的controller
- *
  */
 @RestController
 @RequestMapping("/api/rocketmq")
@@ -41,40 +40,14 @@ public class RocketMQController {
         /**
          * 创建一个消息实例，包含 topic、tag 和 消息体
          */
-        Message message = new Message("TopicTest", tag, msg.getBytes(RemotingHelper.DEFAULT_CHARSET));
+        Message message = new Message("TopicTest", tag,
+                msg.getBytes(RemotingHelper.DEFAULT_CHARSET));
 
         SendResult result = rocketMQProducer.getProducer().send(message);
 
         System.out.println("发送响应：MsgId:" + result.getMsgId() + "，发送状态:" + result.getSendStatus());
 
-        return new JsonData(200, "", "");
+        return new JsonData(200, "", "RocketMQController-》sendMessage，发送rocketmq消息成功");
     }
-
-
-//	
-//	/**
-//	 * 功能描述：微信支付回调接口
-//	 * @param msg 支付信息
-//	 * @return
-//	 */
-//	@GetMapping("comment")
-//	public Object comment(String msg) throws MQClientException, RemotingException, MQBrokerException, InterruptedException, UnsupportedEncodingException{
-//	  
-//		/**
-//        * 创建一个消息实例，包含 topic、tag 和 消息体           
-//       */
-//       Message message = new Message("commentTopic","add", msg.getBytes(RemotingHelper.DEFAULT_CHARSET));
-//       
-//       //同步的方式，会有返回结果,发送的是普通消息
-//       SendResult result = msgProducer.getProducer().send(message);
-//       
-//       System.out.println("发送响应：MsgId:" + result.getMsgId() + "，发送状态:" + result.getSendStatus());
-//     
-//       return JsonData.buildSuccess();
-//	}
-//	
-//	
-//	
-
 
 }

@@ -34,7 +34,8 @@ public class RocketMQProducer {
     }
 
     /**
-     * 消息生产者创建
+     * 初始化消息生产者创建
+     *
      */
     @PostConstruct
     public void defaultMQProducer() {

@@ -11,6 +11,12 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 
+
+/**
+ * Rocketmq的消费者类
+ * <p>
+ * 接收来自rocketmq生产者的消息
+ */
 @Component
 public class RocketMQConsumer {
     /**
@@ -25,6 +31,10 @@ public class RocketMQConsumer {
     @Value("${apache.rocketmq.namesrvAddr}")
     private String namesrvAddr;
 
+
+    /**
+     * 初始化消息监听，处理来自生产者的消息
+     */
     @PostConstruct
     public void defaultMQPushConsumer() {
         //消费者的组名
