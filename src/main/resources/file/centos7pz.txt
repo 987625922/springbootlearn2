@@ -92,6 +92,7 @@ make MALLOC=libc　　
 
 9。直接启动redis
 ./redis-server
+./redis-server /opt/local/redis/redis-4.0.6/redis.conf
 按 ctrl + c可以关闭窗口。
 
 10、以后台进程方式启动redis
