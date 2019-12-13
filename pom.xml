@@ -117,6 +117,11 @@
             <artifactId>rocketmq-common</artifactId>
             <version>${rocketmq.version}</version>
         </dependency>
+        <!-- 监视和管理 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
