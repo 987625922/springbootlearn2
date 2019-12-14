@@ -1,0 +1,2 @@
+1，springadmin
+2，nginx
