@@ -255,3 +255,36 @@ Send shutdown request to mqbroker(36695) OK
 > sh bin/mqshutdown namesrv
 The mqnamesrv(36664) is running...
 Send shutdown request to mqnamesrv(36664) OK
+
+----------------- docker ----------
+ECS上搭建Docker（CentOS7）https://help.aliyun.com/document_detail/51853.html
+1、 常用命令（安装部署好Dokcer后，执行的命令是docker开头）,xxx是镜像名称
+
+			搜索镜像：docker search xxx
+
+			列出当前系统存在的镜像：docker images
+
+			拉取镜像：docker pull xxx
+				xxx是具体某个镜像名称(格式 REPOSITORY:TAG)
+				REPOSITORY：表示镜像的仓库源,TAG：镜像的标签
+
+			运行一个容器：docker run -d --name "xdclass_mq" -p 5672:5672 -p 15672:15672 rabbitmq:management
+				docker run - 运行一个容器
+				-d 后台运行
+				-p 端口映射
+				rabbitmq:management  (格式 REPOSITORY:TAG)，如果不指定tag，默认使用最新的
+				--name "xxx"
+
+			列举当前运行的容器：docker ps
+
+			检查容器内部信息：docker inspect 容器名称
+
+			删除镜像：docker rmi IMAGE_NAME
+				 强制移除镜像不管是否有容器使用该镜像 增加 -f 参数，
+
+			停止某个容器：docker stop 容器名称
+
+			启动某个容器：docker start 容器名称
+
+			移除某个容器： docker rm 容器名称 （容器必须是停止状态）
+
