@@ -1,4 +1,10 @@
-﻿-----centos7 网络配置
+﻿------------------- vsftpd
+1.docker pull fauria/vsftpd
+
+2.docker run -d -v /home/ftp:/home/vsftpd -p 20:20 -p 21:21 -p 21100-21110:21100-21110 -e FTP_USER=ftpuser -e FTP_PASS=LONGJINFEI -e PASV_ADDRESS=你的外网ip -e PASV_MIN_PORT=21100 -e PASV_MAX_PORT=21110 --name vsftpd --restart=always fauria/vsftpd
+路径为 /home/ftp/ftpuser
+
+-----centos7 网络配置
 1.进入 /etc/sysconfig/network-scripts 目录
 
 2.cd /etc/sysconfig/network-scripts
