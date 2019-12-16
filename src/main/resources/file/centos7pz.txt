@@ -1,8 +1,12 @@
-﻿------------------- vsftpd
+﻿------------------- docker 1.vsftpd 2.rabbitmq
 1.docker pull fauria/vsftpd
-
-2.docker run -d -v /home/ftp:/home/vsftpd -p 20:20 -p 21:21 -p 21100-21110:21100-21110 -e FTP_USER=ftpuser -e FTP_PASS=LONGJINFEI -e PASV_ADDRESS=你的外网ip -e PASV_MIN_PORT=21100 -e PASV_MAX_PORT=21110 --name vsftpd --restart=always fauria/vsftpd
+docker run -d -v /home/ftp:/home/vsftpd -p 20:20 -p 21:21 -p 21100-21110:21100-21110 -e FTP_USER=ftpuser -e FTP_PASS=LONGJINFEI -e PASV_ADDRESS=你的外网ip -e PASV_MIN_PORT=21100 -e PASV_MAX_PORT=21110 --name vsftpd --restart=always fauria/vsftpd
 路径为 /home/ftp/ftpuser
+
+2.docker pull rabbitmq:management
+docker run -d --name "xdclass_mq" -p 5672:5672 -p 15672:15672 rabbitmq:management
+
+3.
 
 -----centos7 网络配置
 1.进入 /etc/sysconfig/network-scripts 目录
