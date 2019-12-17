@@ -1,4 +1,4 @@
-﻿------------------- docker 1.vsftpd 2.rabbitmq
+﻿------------------- docker 1.vsftpd 2.rabbitmq 3.mysql
 1.docker pull fauria/vsftpd
 docker run -d -v /home/ftp:/home/vsftpd -p 20:20 -p 21:21 -p 21100-21110:21100-21110 -e FTP_USER=ftpuser -e FTP_PASS=LONGJINFEI -e PASV_ADDRESS=你的外网ip -e PASV_MIN_PORT=21100 -e PASV_MAX_PORT=21110 --name vsftpd --restart=always fauria/vsftpd
 路径为 /home/ftp/ftpuser
@@ -6,7 +6,13 @@ docker run -d -v /home/ftp:/home/vsftpd -p 20:20 -p 21:21 -p 21100-21110:21100-2
 2.docker pull rabbitmq:management
 docker run -d --name "xdclass_mq" -p 5672:5672 -p 15672:15672 rabbitmq:management
 
-3.
+3.docker run -itd --name mysql-docker -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 mysql:5.7.5
+- -p 3306:3306 ：映射容器服务的 3306 端口到宿主机的 3306 端口，外部主机可以直接通过 宿主机ip:3306 访问到 MySQL 的服务。
+- MYSQL_ROOT_PASSWORD=123456：设置 MySQL 服务 root 用户的密码。
+进入docker容器中的mysql使用
+docker exec -it mysql-docker bash
+mysql -u root -p
+
 
 -----centos7 网络配置
 1.进入 /etc/sysconfig/network-scripts 目录
