@@ -35,3 +35,4 @@ build/
 .vscode/
 app_log/
 src/main/java/com/wind/springbootlearn2/fillter/
+application-reselt.properties
