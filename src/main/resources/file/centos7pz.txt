@@ -18,6 +18,10 @@ mysql -u root -p
 运行 docker run -itd --name redis-test -p 6379:6379 redis
 进入redis docker exec -it redis-test /bin/bash
 
+5.nginx
+ docker run --name nginx-docker -p 80:80 -d -v /usr/local/software/app:usr/share/nginx/html nginx
+
+
 -----centos7 网络配置
 1.进入 /etc/sysconfig/network-scripts 目录
 
