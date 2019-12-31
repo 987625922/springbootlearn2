@@ -2,9 +2,10 @@
 1.docker pull fauria/vsftpd
 docker run -d -v /home/ftp:/home/vsftpd -p 20:20 -p 21:21 -p 21100-21110:21100-21110 -e FTP_USER=ftpuser -e FTP_PASS=LONGJINFEI -e PASV_ADDRESS=你的外网ip -e PASV_MIN_PORT=21100 -e PASV_MAX_PORT=21110 --name vsftpd --restart=always fauria/vsftpd
 路径为 /home/ftp/ftpuser
+端口号为21 账号为ftupuser 密码为LONGJINFEI
 
 2.docker pull rabbitmq:management
-docker run -d --name "xdclass_mq" -p 5672:5672 -p 15672:15672 rabbitmq:management
+docker run -d --name mq_docker -p 5672:5672 -p 15672:15672 rabbitmq:management
 
 3.docker run -itd --name mysql-docker -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 mysql:5.7.5
 - -p 3306:3306 ：映射容器服务的 3306 端口到宿主机的 3306 端口，外部主机可以直接通过 宿主机ip:3306 访问到 MySQL 的服务。
@@ -19,7 +20,7 @@ mysql -u root -p
 进入redis docker exec -it redis-test /bin/bash
 
 5.nginx
- docker run --name nginx-docker -p 80:80 -d -v /usr/local/software/app:usr/share/nginx/html nginx
+ docker run --name nginx-docker -p 80:80 -d -v /usr/local/software/app:/usr/share/nginx/html nginx
 
 
 -----centos7 网络配置
@@ -34,6 +35,8 @@ mysql -u root -p
 5.重启网络服务   service network restart
 
 -------- JAVA配置
+yum安装 yum install java-1.8.0-openjdk.x86_64 -y
+
 把jdk解压到指定目录下
 1.解压jdk-8u231-linux-x64.tar.gz到目录下
 
@@ -46,6 +49,8 @@ export JRE_HOME=$JAVA_HOME/jre
 export CLASSPATH=$JAVA_HOME/lib:$JRE_HOME/lib:$CLASSPATH
 export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH
 :wq保存退出。
+
+ 守护进程启动springboot项目：nohup java -jar springbootproject-0.0.1-SNAPSHOT.jar -Dspring.config.location=application.properties &
 
 
 4. 让配置生效
@@ -282,6 +287,7 @@ Send shutdown request to mqnamesrv(36664) OK
 
 ----------------- docker ----------
 ECS上搭建Docker（CentOS7）https://help.aliyun.com/document_detail/51853.html
+腾讯云源加速：https://cloud.tencent.com/document/product/457/9113
 1、 常用命令（安装部署好Dokcer后，执行的命令是docker开头）,xxx是镜像名称
 
 			搜索镜像：docker search xxx
@@ -312,4 +318,6 @@ ECS上搭建Docker（CentOS7）https://help.aliyun.com/document_detail/51853.htm
 			启动某个容器：docker start 容器名称
 
 			移除某个容器： docker rm 容器名称 （容器必须是停止状态）
+
+			进入容器： docker exec -it name bash
 
